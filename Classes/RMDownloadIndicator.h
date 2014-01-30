@@ -36,6 +36,9 @@ typedef enum {
 - (void)loadIndicator;
 
 // update the downloadIndicator
+- (void)setIndicatorAnimationDuration:(CGFloat)duration;
+
+// update the downloadIndicator
 - (void)updateWithTotalBytes:(CGFloat)bytes downloadedBytes:(CGFloat)downloadedBytes;
 
 @end

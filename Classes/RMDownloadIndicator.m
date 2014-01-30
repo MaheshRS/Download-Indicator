@@ -31,6 +31,10 @@
 @property(nonatomic, strong)UIBezierPath *lastUpdatedPath;
 @property(nonatomic, assign)CGFloat lastSourceAngle;
 
+// this the animation duration (default: 0.5)
+@property(nonatomic, assign)CGFloat animationDuration;
+
+
 // this is display label that displays % downloaded
 @property(nonatomic, strong)RMDisplayLabel *displayLabel;
 
@@ -117,6 +121,9 @@
     
     // path array
     _paths = [NSMutableArray array];
+    
+    // animation duration
+    _animationDuration = 0.5;
 }
 
 - (void)addDisplayLabel
@@ -138,7 +145,7 @@
     
     if(_type == kRMClosedIndicator)
     {
-        [initialPath addArcWithCenter:center radius:(MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * self.radiusPercent) startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
+        [initialPath addArcWithCenter:center radius:(MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))) startAngle:degreeToRadian(-90) endAngle:degreeToRadian(-90) clockwise:YES]; //add the arc
     }
     else
     {
@@ -232,14 +239,14 @@
     [_paths removeAllObjects];
     
     CGFloat destinationAngle = [self destinationAngleForRatio:(downloadedBytes/bytes)];
-    [_paths addObjectsFromArray:[self keyframePathsWithDuration:1 sourceStartAngle:degreeToRadian(-90) sourceEndAngle:self.lastSourceAngle destinationStartAngle:degreeToRadian(-90) destinationEndAngle:destinationAngle centerPoint:center size:CGSizeMake(self.bounds.size.width, self.bounds.size.width) sourceRadiusPercent:_radiusPercent destinationRadiusPercent:_radiusPercent type:_type]];
+    [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration sourceStartAngle:degreeToRadian(-90) sourceEndAngle:self.lastSourceAngle destinationStartAngle:degreeToRadian(-90) destinationEndAngle:destinationAngle centerPoint:center size:CGSizeMake(self.bounds.size.width, self.bounds.size.width) sourceRadiusPercent:_radiusPercent destinationRadiusPercent:_radiusPercent type:_type]];
     
     _animatingLayer.path = (__bridge CGPathRef)((id)_paths[(_paths.count -1)]);
     self.lastSourceAngle = destinationAngle;
     
     CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"path"];
     [pathAnimation setValues:_paths];
-    [pathAnimation setDuration:1];
+    [pathAnimation setDuration:self.animationDuration];
     [pathAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
     [pathAnimation setRemovedOnCompletion:YES];
     [_animatingLayer addAnimation:pathAnimation forKey:@"path"];
@@ -269,11 +276,22 @@ float degreeToRadian(float degree)
 
 - (void)setRadiusPercent:(CGFloat)radiusPercent
 {
+    if(_type == kRMClosedIndicator)
+    {
+        _radiusPercent = 0.5;
+        return;
+    }
+    
     if(radiusPercent > 0.5 || radiusPercent < 0)
         return;
     else
         _radiusPercent = radiusPercent;
         
+}
+
+- (void)setIndicatorAnimationDuration:(CGFloat)duration
+{
+    self.animationDuration = duration;
 }
 
 @end
