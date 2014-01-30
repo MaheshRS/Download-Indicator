@@ -166,37 +166,36 @@
 
 #pragma mark -
 #pragma mark Helper Methods
-- (NSArray *)keyframePathsWithDuration:(CGFloat) duration sourceStartAngle:(CGFloat)sourceStartAngle sourceEndAngle:(CGFloat)sourceEndAngle destinationStartAngle:(CGFloat)destinationStartAngle destinationEndAngle:(CGFloat)destinationEndAngle centerPoint:(CGPoint)centerPoint size:(CGSize)size sourceRadiusPercent:(CGFloat)sourceRadiusPercent destinationRadiusPercent:(CGFloat)destinationRadiusPercent type:(RMIndicatorType)type
+- (NSArray *)keyframePathsWithDuration:(CGFloat)duration lastUpdatedAngle:(CGFloat)lastUpdatedAngle newAngle:(CGFloat)newAngle radius:(CGFloat)radius type:(RMIndicatorType)type
 {
     NSUInteger frameCount = ceil(duration * 60);
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:frameCount + 1];
     for (int frame = 0; frame <= frameCount; frame++)
     {
-        CGFloat startAngle = sourceStartAngle + (((destinationStartAngle - sourceStartAngle) * frame) / frameCount);
-        CGFloat endAngle = sourceEndAngle + (((destinationEndAngle - sourceEndAngle) * frame) / frameCount);
-        CGFloat radiusPercent = sourceRadiusPercent + (((destinationRadiusPercent - sourceRadiusPercent) * frame) / frameCount);
-        CGFloat radius = (MIN(size.width, size.height) * radiusPercent) - self.coverWidth;
+        CGFloat startAngle = degreeToRadian(-90);
+        CGFloat endAngle = lastUpdatedAngle + (((newAngle - lastUpdatedAngle) * frame) / frameCount);
         
-        [array addObject:(id)([self slicePathWithStartAngle:startAngle endAngle:endAngle centerPoint:centerPoint radius:radius type:type].CGPath)];
+        [array addObject:(id)([self pathWithStartAngle:startAngle endAngle:endAngle radius:radius type:type].CGPath)];
     }
     
     return [NSArray arrayWithArray:array];
 }
 
-- (UIBezierPath *)slicePathWithStartAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle centerPoint:(CGPoint)centerPoint radius:(CGFloat)radius type:(RMIndicatorType)type
+- (UIBezierPath *)pathWithStartAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle radius:(CGFloat)radius type:(RMIndicatorType)type
 {
     BOOL clockwise = startAngle < endAngle;
     
     UIBezierPath *path = [UIBezierPath bezierPath];
+    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     
     if(type == kRMClosedIndicator)
     {
-        [path addArcWithCenter:centerPoint radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+        [path addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
     }
     else
     {
-        [path moveToPoint:centerPoint];
-        [path addArcWithCenter:centerPoint radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
+        [path moveToPoint:center];
+        [path addArcWithCenter:center radius:radius startAngle:startAngle endAngle:endAngle clockwise:clockwise];
         [path closePath];
     }
     return path;
@@ -233,13 +232,13 @@
 #pragma mark - update indicator
 - (void)updateWithTotalBytes:(CGFloat)bytes downloadedBytes:(CGFloat)downloadedBytes
 {
-    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
     _lastUpdatedPath = [UIBezierPath bezierPathWithCGPath:_animatingLayer.path];
     
     [_paths removeAllObjects];
     
     CGFloat destinationAngle = [self destinationAngleForRatio:(downloadedBytes/bytes)];
-    [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration sourceStartAngle:degreeToRadian(-90) sourceEndAngle:self.lastSourceAngle destinationStartAngle:degreeToRadian(-90) destinationEndAngle:destinationAngle centerPoint:center size:CGSizeMake(self.bounds.size.width, self.bounds.size.width) sourceRadiusPercent:_radiusPercent destinationRadiusPercent:_radiusPercent type:_type]];
+    CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * _radiusPercent) - self.coverWidth;
+    [_paths addObjectsFromArray:[self keyframePathsWithDuration:self.animationDuration lastUpdatedAngle:self.lastSourceAngle newAngle:destinationAngle  radius:radius type:_type]];
     
     _animatingLayer.path = (__bridge CGPathRef)((id)_paths[(_paths.count -1)]);
     self.lastSourceAngle = destinationAngle;
