@@ -8,3 +8,8 @@ The classes are made flexible such that
 * Change the stroke color.
 * Changefill color.
 * Custom set the inner and the outer radius, the animation duration.
+
+Here a image in the gif format, but in real the indicator animates beautifully from one state to another.
+
+
+![](http://s2.postimg.org/l3hnef3t5/RMDownload_Indicator.gif)
