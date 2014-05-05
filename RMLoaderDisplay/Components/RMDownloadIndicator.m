@@ -99,6 +99,7 @@
             _animatingLayer = _indicateShapeLayer;
             self.radiusPercent = 0.5;
             _coverWidth = 2.0;
+            _closedIndicatorBackgroundStrokeColor = [UIColor clearColor];
         }
         else
         {
@@ -108,12 +109,12 @@
             _animatingLayer = _indicateShapeLayer;
             _coverWidth = 2.0;
             self.radiusPercent = 0.4;
+            _closedIndicatorBackgroundStrokeColor = [UIColor whiteColor];
         }
         
         // set the fill color
         _fillColor = [UIColor whiteColor];
         _strokeColor = [UIColor whiteColor];
-        _closedIndicatorBackgroundStrokeColor = [UIColor clearColor];
     }
     
     _animatingLayer.frame = self.bounds;
@@ -212,7 +213,7 @@
         [coverPath setLineWidth:_coverWidth];
         [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
         
-        [_strokeColor set];
+        [_closedIndicatorBackgroundStrokeColor set];
         [coverPath stroke];
     }
     else if (_type == kRMClosedIndicator)

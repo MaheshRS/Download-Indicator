@@ -69,6 +69,7 @@
     [mixedIndicator setBackgroundColor:[UIColor whiteColor]];
     [mixedIndicator setFillColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
     [mixedIndicator setStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
+    [mixedIndicator setClosedIndicatorBackgroundStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
     mixedIndicator.radiusPercent = 0.45;
     [self.view addSubview:mixedIndicator];
     [mixedIndicator loadIndicator];
