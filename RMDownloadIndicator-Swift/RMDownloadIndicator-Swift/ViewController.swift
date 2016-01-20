@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             self.mixedIndicator = nil
         }
         
-        var closedIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.animationSwitch.frame) + 60.0, 80, 80), type: RMIndicatorType.kRMClosedIndicator)
+        let closedIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.animationSwitch.frame) + 60.0, 80, 80), type: RMIndicatorType.kRMClosedIndicator)
         closedIndicator.backgroundColor = UIColor.whiteColor()
         closedIndicator.fillColor = UIColor(red: 16/255, green: 119/255, blue: 234/255, alpha: 1.0)
         closedIndicator.strokeColor = UIColor(red:16/255, green: 119/255, blue: 234/255, alpha: 1.0)
@@ -52,7 +52,7 @@ class ViewController: UIViewController {
         closedIndicator.loadIndicator()
         self.closedIndicator = closedIndicator
         
-        var filledIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.closedIndicator.frame) + 40.0, 80, 80), type: RMIndicatorType.kRMFilledIndicator)
+        let filledIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.closedIndicator.frame) + 40.0, 80, 80), type: RMIndicatorType.kRMFilledIndicator)
         filledIndicator.backgroundColor = UIColor.whiteColor()
         filledIndicator.fillColor = UIColor(red: 16.0/255, green: 119.0/255.0, blue: 234.0/255.0, alpha: 1.0)
         filledIndicator.strokeColor = UIColor(red: 16.0/255.0, green: 119.0/255.0, blue: 234.0/255.0, alpha: 1.0)
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
         filledIndicator.loadIndicator()
         self.filledIndicator = filledIndicator
         
-        var mixedIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.filledIndicator.frame) + 40.0, 80, 80), type: RMIndicatorType.kRMMixedIndictor)
+        let mixedIndicator: RMDownloadIndicator = RMDownloadIndicator(rectframe: CGRectMake((CGRectGetWidth(self.view.bounds) - 80) / 2, CGRectGetMaxY(self.filledIndicator.frame) + 40.0, 80, 80), type: RMIndicatorType.kRMMixedIndictor)
         mixedIndicator.backgroundColor = UIColor.whiteColor()
         mixedIndicator.fillColor = UIColor(red: 16.0/255.0, green: 119.0/255.0, blue: 234.0/255.0, alpha: 1.0)
         mixedIndicator.strokeColor = UIColor(red: 16.0/255.0, green: 119.0/255.0, blue: 234.0/255.0, alpha: 1.0)
@@ -82,23 +82,23 @@ class ViewController: UIViewController {
         self.downloadedBytes = 0
         self.animationSwitch.userInteractionEnabled = false
         
-        var delayInSeconds: Int64 = 1
-        var popTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Int64(NSEC_PER_SEC)))
+        let delayInSeconds: Int64 = 1
+        let popTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds * Int64(NSEC_PER_SEC)))
         dispatch_after(popTime, dispatch_get_main_queue(), {() in        self.updateView(10.0)
             
         })
-        var delayInSeconds1: Int64 = delayInSeconds + 1
-        var popTime1: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds1 * Int64(NSEC_PER_SEC)))
+        let delayInSeconds1: Int64 = delayInSeconds + 1
+        let popTime1: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds1 * Int64(NSEC_PER_SEC)))
         dispatch_after(popTime1, dispatch_get_main_queue(), {() in        self.updateView(30.0)
             
         })
-        var delayInSeconds2: Int64 = delayInSeconds1 + 1
-        var popTime2: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds2 * Int64(NSEC_PER_SEC)))
+        let delayInSeconds2: Int64 = delayInSeconds1 + 1
+        let popTime2: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds2 * Int64(NSEC_PER_SEC)))
         dispatch_after(popTime2, dispatch_get_main_queue(), {() in        self.updateView(10.0)
             
         })
-        var delayInSeconds3: Int64 = delayInSeconds2 + 1
-        var popTime3: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds3 * Int64(NSEC_PER_SEC)))
+        let delayInSeconds3: Int64 = delayInSeconds2 + 1
+        let popTime3: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(delayInSeconds3 * Int64(NSEC_PER_SEC)))
         dispatch_after(popTime3, dispatch_get_main_queue(), {() in        self.updateView(50.0)
             self.animationSwitch.userInteractionEnabled = true
             

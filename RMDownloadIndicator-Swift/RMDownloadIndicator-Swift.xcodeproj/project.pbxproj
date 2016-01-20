@@ -159,6 +159,8 @@
 		672ECA5C1B789AF700B9292B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Mahesh Shanbhag";
 				TargetAttributes = {
@@ -413,6 +415,7 @@
 				672ECA851B789AF700B9292B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		672ECA861B789AF700B9292B /* Build configuration list for PBXNativeTarget "RMDownloadIndicator-SwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +424,7 @@
 				672ECA881B789AF700B9292B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

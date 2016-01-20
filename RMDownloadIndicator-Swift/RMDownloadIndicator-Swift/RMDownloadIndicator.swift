@@ -66,7 +66,7 @@ class RMDownloadIndicator: UIView {
         self.initAttributes()
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -114,8 +114,8 @@ class RMDownloadIndicator: UIView {
     
     // prepare the download indicator
     func loadIndicator() {
-        var center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
-        var initialPath: UIBezierPath = UIBezierPath.init()
+        let center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
+        let initialPath: UIBezierPath = UIBezierPath.init()
         if type == RMIndicatorType.kRMClosedIndicator {
             initialPath.addArcWithCenter(center, radius: (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))), startAngle: degreeToRadian(-90), endAngle: degreeToRadian(-90), clockwise: true)
         }
@@ -123,7 +123,7 @@ class RMDownloadIndicator: UIView {
             if type == RMIndicatorType.kRMMixedIndictor {
                 self.setNeedsDisplay()
             }
-            var radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) * self.radiusPercent
+            let radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) * self.radiusPercent
             initialPath.addArcWithCenter(center, radius: radius, startAngle: degreeToRadian(-90), endAngle: degreeToRadian(-90), clockwise: true)
         }
         animatingLayer.path = initialPath.CGPath
@@ -134,22 +134,22 @@ class RMDownloadIndicator: UIView {
     }
     
     func keyframePathsWithDuration(duration: CGFloat, lastUpdatedAngle: CGFloat, newAngle: CGFloat, radius: CGFloat, type: RMIndicatorType) -> [CGPath] {
-        var frameCount: Int = Int(ceil(duration * 60))
+        let frameCount: Int = Int(ceil(duration * 60))
         var array: [CGPath] = []
         for var frame = 0; frame <= frameCount; frame++ {
-            var startAngle = degreeToRadian(-90)
+            let startAngle = degreeToRadian(-90)
             
-            var angleChange = ((newAngle - lastUpdatedAngle) * CGFloat(frame))
-            var endAngle = lastUpdatedAngle + (angleChange / CGFloat(frameCount))
+            let angleChange = ((newAngle - lastUpdatedAngle) * CGFloat(frame))
+            let endAngle = lastUpdatedAngle + (angleChange / CGFloat(frameCount))
             array.append((self.pathWithStartAngle(startAngle, endAngle: endAngle, radius: radius, type: type).CGPath))
         }
         return array
     }
     
     func pathWithStartAngle(startAngle: CGFloat, endAngle: CGFloat, radius: CGFloat, type: RMIndicatorType) -> UIBezierPath {
-        var clockwise: Bool = startAngle < endAngle
-        var path: UIBezierPath = UIBezierPath()
-        var center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
+        let clockwise: Bool = startAngle < endAngle
+        let path: UIBezierPath = UIBezierPath()
+        let center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
         if type == RMIndicatorType.kRMClosedIndicator {
             path.addArcWithCenter(center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: clockwise)
         }
@@ -163,9 +163,9 @@ class RMDownloadIndicator: UIView {
     
     override func drawRect(rect: CGRect) {
         if type == RMIndicatorType.kRMMixedIndictor {
-            var radius: CGFloat = fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2 - self.coverWidth
-            var center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
-            var coverPath: UIBezierPath = UIBezierPath()
+            let radius: CGFloat = fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2 - self.coverWidth
+            let center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
+            let coverPath: UIBezierPath = UIBezierPath()
             coverPath.lineWidth = coverWidth
             coverPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
             closedIndicatorBackgroundStrokeColor.set()
@@ -173,9 +173,9 @@ class RMDownloadIndicator: UIView {
         }
         else {
             if type == RMIndicatorType.kRMClosedIndicator {
-                var radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) - self.coverWidth
-                var center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
-                var coverPath: UIBezierPath = UIBezierPath()
+                let radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) - self.coverWidth
+                let center: CGPoint = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2)
+                let coverPath: UIBezierPath = UIBezierPath()
                 coverPath.lineWidth = coverWidth
                 coverPath.addArcWithCenter(center, radius: radius, startAngle: CGFloat(0), endAngle: CGFloat(2 * M_PI), clockwise: true)
                 closedIndicatorBackgroundStrokeColor.set()
@@ -187,19 +187,22 @@ class RMDownloadIndicator: UIView {
     
     // update the downloadIndicator
     func updateWithTotalBytes(bytes: CGFloat, downloadedBytes: CGFloat) {
-        lastUpdatedPath = UIBezierPath.init(CGPath: animatingLayer.path)
+        lastUpdatedPath = UIBezierPath.init(CGPath: animatingLayer.path!)
         paths.removeAll(keepCapacity: false)
-        var destinationAngle: CGFloat = self.destinationAngleForRatio((downloadedBytes / bytes))
-        var radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * radiusPercent) - self.coverWidth
+        let destinationAngle: CGFloat = self.destinationAngleForRatio((downloadedBytes / bytes))
+        let radius: CGFloat = (fmin(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) * radiusPercent) - self.coverWidth
         paths = self.keyframePathsWithDuration(self.animationDuration, lastUpdatedAngle: self.lastSourceAngle, newAngle: destinationAngle, radius: radius, type: type)
         animatingLayer.path = paths[(paths.count - 1)]
         self.lastSourceAngle = destinationAngle
-        var pathAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "path")
+        let pathAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "path")
         pathAnimation.values = paths
         pathAnimation.duration = CFTimeInterval(animationDuration)
         pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         pathAnimation.removedOnCompletion = true
         animatingLayer.addAnimation(pathAnimation, forKey: "path")
+        if downloadedBytes >= bytes{
+            self.removeFromSuperview()
+        }
     }
     
     func destinationAngleForRatio(ratio: CGFloat) -> CGFloat {
