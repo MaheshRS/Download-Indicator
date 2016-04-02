@@ -42,7 +42,7 @@
 
 @implementation RMDownloadIndicator
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -53,7 +53,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame type:(RMIndicatorType)type
+- (instancetype)initWithFrame:(CGRect)frame type:(RMIndicatorType)type
 {
     self = [super initWithFrame:frame];
     if (self) {

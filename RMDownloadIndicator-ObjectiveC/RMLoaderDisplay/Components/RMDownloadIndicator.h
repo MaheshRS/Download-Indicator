@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, RMIndicatorType) {
 
 // init with frame and type
 // if() - (id)initWithFrame:(CGRect)frame is used the default type = kRMFilledIndicator
-- (id)initWithFrame:(CGRect)frame type:(RMIndicatorType)type;
+- (instancetype)initWithFrame:(CGRect)frame type:(RMIndicatorType)type;
 
 // prepare the download indicator
 - (void)loadIndicator;
