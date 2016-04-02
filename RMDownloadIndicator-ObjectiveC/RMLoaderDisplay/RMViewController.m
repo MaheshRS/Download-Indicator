@@ -65,7 +65,7 @@
     [filledIndicator loadIndicator];
     _filledIndicator = filledIndicator;
     
-    RMDownloadIndicator *mixedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds) - 80)/2, CGRectGetMaxY(self.filledIndicator.frame) + 40.0f, 80, 80) type:kRMMixedIndictor];
+    RMDownloadIndicator *mixedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.view.bounds) - 80)/2, CGRectGetMaxY(self.filledIndicator.frame) + 40.0f, 80, 80) type:kRMMixedIndicator];
     [mixedIndicator setBackgroundColor:[UIColor whiteColor]];
     [mixedIndicator setFillColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
     [mixedIndicator setStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
