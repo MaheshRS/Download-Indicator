@@ -132,7 +132,7 @@
 - (void)loadIndicator
 {
     // set the initial Path
-    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
     UIBezierPath *initialPath = [UIBezierPath bezierPath]; //empty path
     
     if(_type == kRMClosedIndicator)
@@ -178,7 +178,7 @@
     BOOL clockwise = startAngle < endAngle;
     
     UIBezierPath *path = [UIBezierPath bezierPath];
-    CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
+    CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
     
     if(type == kRMClosedIndicator)
     {
