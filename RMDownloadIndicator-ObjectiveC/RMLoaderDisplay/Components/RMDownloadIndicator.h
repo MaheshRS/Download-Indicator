@@ -11,7 +11,7 @@
 typedef NS_ENUM(NSInteger, RMIndicatorType) {
     kRMClosedIndicator,
     kRMFilledIndicator,
-    kRMMixedIndictor,
+    kRMMixedIndicator,
 };
 
 @interface RMDownloadIndicator : UIView

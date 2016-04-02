@@ -141,7 +141,7 @@
     }
     else
     {
-        if(_type == kRMMixedIndictor)
+        if(_type == kRMMixedIndicator)
         {
             [self setNeedsDisplay];
         }
@@ -195,7 +195,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if(_type == kRMMixedIndictor || _type == kRMClosedIndicator)
+    if(_type == kRMMixedIndicator || _type == kRMClosedIndicator)
     {
         CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) - self.coverWidth;
         CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
