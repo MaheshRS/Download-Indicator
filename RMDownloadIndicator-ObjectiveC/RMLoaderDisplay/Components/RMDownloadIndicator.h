@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    kRMClosedIndicator=0,
+typedef NS_ENUM(NSInteger, RMIndicatorType) {
+    kRMClosedIndicator,
     kRMFilledIndicator,
     kRMMixedIndictor,
-}RMIndicatorType;
+};
 
 @interface RMDownloadIndicator : UIView
 
