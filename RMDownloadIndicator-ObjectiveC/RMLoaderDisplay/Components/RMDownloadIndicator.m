@@ -195,28 +195,15 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    if(_type == kRMMixedIndictor)
+    if(_type == kRMMixedIndictor || _type == kRMClosedIndicator)
     {
-        CGFloat radius = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2 - self.coverWidth;
+        CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds)) / 2) - self.coverWidth;
+        CGPoint center = CGPointMake(CGRectGetWidth(self.bounds) / 2, CGRectGetHeight(self.bounds) / 2);
         
-        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
         UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
         [coverPath setLineWidth:_coverWidth];
-        [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
-        
+        [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2 * M_PI clockwise:YES]; //add the arc
         [_closedIndicatorBackgroundStrokeColor set];
-        [coverPath stroke];
-    }
-    else if (_type == kRMClosedIndicator)
-    {
-        CGFloat radius = (MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds))/2) - self.coverWidth;
-        
-        CGPoint center = CGPointMake(self.bounds.size.width / 2, self.bounds.size.height / 2);
-        UIBezierPath *coverPath = [UIBezierPath bezierPath]; //empty path
-        [coverPath setLineWidth:_coverWidth];
-        [coverPath addArcWithCenter:center radius:radius startAngle:0 endAngle:2*M_PI clockwise:YES]; //add the arc
-        [_closedIndicatorBackgroundStrokeColor set];
-        [coverPath setLineWidth:self.coverWidth];
         [coverPath stroke];
     }
 }
