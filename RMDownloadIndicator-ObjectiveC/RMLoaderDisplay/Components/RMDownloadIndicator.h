@@ -8,21 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum {
-    kRMClosedIndicator=0,
+typedef NS_ENUM(NSInteger, RMIndicatorType) {
+    kRMClosedIndicator,
     kRMFilledIndicator,
-    kRMMixedIndictor,
-}RMIndicatorType;
+    kRMMixedIndicator,
+};
 
 @interface RMDownloadIndicator : UIView
 
-// this value should be 0 to 0.5 (default: (kRMFilledIndicator = 0.5), (kRMMixedIndictor = 0.4))
+// this value should be 0 to 0.5 (default: (kRMFilledIndicator = 0.5), (kRMMixedIndicator = 0.4))
 @property(nonatomic, assign)CGFloat radiusPercent;
 
-// used to fill the downloaded percent slice (default: (kRMFilledIndicator = white), (kRMMixedIndictor = white))
+// used to fill the downloaded percent slice (default: (kRMFilledIndicator = white), (kRMMixedIndicator = white))
 @property(nonatomic, strong)UIColor *fillColor;
 
-// used to stroke the covering slice (default: (kRMClosedIndicator = white), (kRMMixedIndictor = white))
+// used to stroke the covering slice (default: (kRMClosedIndicator = white), (kRMMixedIndicator = white))
 @property(nonatomic, strong)UIColor *strokeColor;
 
 // used to stroke the background path the covering slice (default: (kRMClosedIndicator = gray))
@@ -30,7 +30,7 @@ typedef enum {
 
 // init with frame and type
 // if() - (id)initWithFrame:(CGRect)frame is used the default type = kRMFilledIndicator
-- (id)initWithFrame:(CGRect)frame type:(RMIndicatorType)type;
+- (instancetype)initWithFrame:(CGRect)frame type:(RMIndicatorType)type;
 
 // prepare the download indicator
 - (void)loadIndicator;
